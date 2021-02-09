@@ -1,0 +1,12 @@
+{
+  "dependencies": {
+    "aws-sdk": "^2.839.0",
+    "axios": "^0.21.1",
+    "fast-xml-parser": "^3.18.0",
+    "mongoose": "^5.11.15"
+  },
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "serverless-offline": "^6.8.0"
+  }
+}

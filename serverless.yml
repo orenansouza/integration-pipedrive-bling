@@ -1,0 +1,29 @@
+service: integration-pipedrive-bling
+app: integration-pipedrive-bling
+org: Renan Souza
+
+frameworkVersion: '2'
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 4000
+    debug: true
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  environment:
+    DATABASE_URL: # DATABASE URL
+    BLING_URL: https://bling.com.br/Api/v2
+    BLING_API_KEY: # BLING KEY
+
+functions:
+  create-order:
+    name: function-create-order
+    handler: src/handlers/orders.createOrder
+    events:
+      - http:
+          path: orders
+          method: post
