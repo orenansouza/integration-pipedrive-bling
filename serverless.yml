@@ -15,9 +15,9 @@ provider:
   name: aws
   runtime: nodejs12.x
   environment:
-    DATABASE_URL: mongodb+srv://root:root@cluster0.aoiyz.mongodb.net/integration-bling?retryWrites=true&w=majority
+    DATABASE_URL: # DATABASE URL
     BLING_URL: https://bling.com.br/Api/v2
-    BLING_API_KEY: d287236302f00c57fdce4d5cc80a278aa3aa50352e41e8ab6ead41b683171f0b0860ee8f
+    BLING_API_KEY: # BLING KEY
 
 functions:
   create-order:
