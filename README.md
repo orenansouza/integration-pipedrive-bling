@@ -52,12 +52,12 @@ Obs: Possui paginação.
     "orders": [
       {
         "_id": "",
-        "pipedrive_id": "",
+        "pipedriveId": "",
         "title": "",
-        "client_name": "",
-        "owner_name": "",
+        "clientName": "",
+        "ownerName": "",
         "value": 0,
-        "bling_id": "",
+        "blingId": "",
         "createdAt": "",
         "updatedAt": "",
         "__v": 0
