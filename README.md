@@ -30,7 +30,7 @@ Para rodar o projeto de modo que o Pipedrive consiga enxergar a aplicação foi 
 Este endpoint tem a função de receber a oportunidade enviada pelo **Pipedrive** e cadastrar o produto e depois cadastrar o pedido na
 **Bling** e no **Bando de dados**.
 
-###GET `/dev/orders`
+### GET `/dev/orders`
 Este endpoint tem a função de retornar todos os pedidos cadastrados no Bando de dados.
 
 Obs: Possui paginação.
