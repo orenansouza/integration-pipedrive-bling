@@ -27,3 +27,10 @@ functions:
       - http:
           path: orders
           method: post
+  get-orders:
+    name: function-get-orders
+    handler: src/handlers/orders.getOrders
+    events:
+      - http:
+          path: orders
+          method: get

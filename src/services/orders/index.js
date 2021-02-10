@@ -86,4 +86,9 @@ async function createOrderBling(body, item_cod) {
   return OrderRepository.createOrderBling(order)
 }
 
-module.exports.getOrders = async () => {}
+module.exports.getOrders = async ({ page = 1, limit = 10 }) => {
+  if (typeof page !== Number) page = 1
+  if (typeof limit !== Number) limit = 10
+
+  return OrderRepository.getOrders(page, limit)
+}

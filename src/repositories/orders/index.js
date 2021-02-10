@@ -30,3 +30,19 @@ module.exports.validationExistOrder = async (pipedrive_id) => {
 
   return false
 }
+
+module.exports.getOrders = async (page, limit) => {
+  const skip = (page - 1) * limit
+
+  const totalOrders = await OrderModel.estimatedDocumentCount().exec()
+  const orders = await OrderModel.find().skip(skip).limit(limit).sort({ createdAt: 'desc' }).lean()
+
+  return {
+    pagination: {
+      currentPage: page,
+      limit,
+      totalItems: totalOrders,
+    },
+    current: orders,
+  }
+}
