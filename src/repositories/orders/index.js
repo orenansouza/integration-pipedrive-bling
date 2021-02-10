@@ -43,6 +43,6 @@ module.exports.getOrders = async (page, limit) => {
       limit,
       totalItems: totalOrders,
     },
-    current: orders,
+    orders,
   }
 }

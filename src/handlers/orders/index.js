@@ -20,7 +20,7 @@ module.exports.getOrders = async (event, context) => {
 
     return {
       statusCode: 200,
-      body: JSON.stringify({ data: orders }),
+      body: JSON.stringify({ current: orders }),
     }
   } catch (error) {
     console.error(`Error in ${context.functionName}`, error)
