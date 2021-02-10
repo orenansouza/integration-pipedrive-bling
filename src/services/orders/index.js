@@ -49,35 +49,36 @@ module.exports.createOrder = async (data) => {
   }
 
   const response_product_bling = await ProductRepository.createProductBling(body.title)
-  if (response_product_bling.data.retorno.erros && response_product_bling.data.retorno.erros.length > 0) {
-    console.error(response_product_bling.data.retorno.erros[0][0].erro.message)
-    throw new Error(response_product_bling.data.retorno.erros[0][0].erro)
+  if (response_product_bling.data.retorno.erros) {
+    console.error(response_product_bling.data.retorno.erros[0][0].erro.msg)
+    throw new Error(response_product_bling.data.retorno.erros[0][0].erro.msg)
   }
 
-  const product_bling = response_product_bling.data.retorno.produtos[0][0]
-  body.bling_id = product_bling.produto.id
+  const product_bling_cod = response_product_bling.data.retorno.produtos[0][0].produto.codigo
 
-  const response_order_bling = await createOrderBling(body)
-
-  if (response_order_bling.data.retorno.erros[0] && response_order_bling.data.retorno.erros[0].length > 0) {
-    console.error(response_order_bling.data.retorno.erros[0][0].erro.message)
-    throw new Error(response_order_bling.data.retorno.erros[0][0].erro)
+  const response_order_bling = await createOrderBling(body, product_bling_cod)
+  if (response_order_bling.data.retorno.erros) {
+    console.error(response_order_bling.data.retorno.erros[0].erro.msg)
+    throw new Error(response_order_bling.data.retorno.erros[0].erro.msg)
   }
+
+  const order_bling = response_order_bling.data.retorno.pedidos[0].pedido
+  body.bling_id = order_bling.idPedido
 
   return OrderRepository.createOrder(body)
 }
 
-async function createOrderBling(body) {
+async function createOrderBling(body, item_cod) {
   const order = {
     pedido: {
-      client: {
+      cliente: {
         name: body.client_name,
       },
       item: {
-        code: body.bling_id,
-        description: `[${body.pipedrive_id}] - ${body.description}`,
-        unit_value: body.value,
-        quantity: 1,
+        codigo: item_cod,
+        descricao: body.title,
+        vlr_unit: body.value,
+        qtde: 1,
       },
     },
   }

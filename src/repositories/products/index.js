@@ -10,7 +10,7 @@ module.exports.createProductBling = (description) => {
   const code = Date.now().toString()
   const product = {
     produto: {
-      code,
+      codigo: code,
       descricao: description,
       tipo: 'S',
     },
