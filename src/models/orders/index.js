@@ -2,12 +2,12 @@ const { Schema, model } = require('../../database')
 
 const orderSchema = new Schema(
   {
-    pipedrive_id: {
+    pipedriveId: {
       type: String,
       required: true,
       unique: true,
     },
-    bling_id: {
+    blingId: {
       type: String,
       required: true,
       unique: true,
@@ -16,11 +16,11 @@ const orderSchema = new Schema(
       type: String,
       required: true,
     },
-    client_name: {
+    clientName: {
       type: String,
       required: true,
     },
-    owner_name: {
+    ownerName: {
       type: String,
       required: true,
     },

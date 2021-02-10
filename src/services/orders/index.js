@@ -16,7 +16,7 @@ function validationPayload(payload) {
     }
   }
 
-  if (!payload.owner_name) {
+  if (!payload.ownerName) {
     return {
       valid: false,
       message: 'owner not found',
@@ -26,10 +26,10 @@ function validationPayload(payload) {
   return {
     valid: true,
     body: {
-      pipedrive_id: payload.id,
+      pipedriveId: payload.id,
       title: payload.title,
-      client_name: payload.person_name,
-      owner_name: payload.owner_name,
+      clientName: payload.person_name,
+      ownerName: payload.ownerName,
       value: payload.value,
     },
   }
@@ -43,27 +43,27 @@ module.exports.createOrder = async (data) => {
 
   const body = { ...validation.body }
 
-  const order_exists = await OrderRepository.validationExistOrder(body.pipedrive_id)
-  if (order_exists) {
+  const orderExists = await OrderRepository.validationExistOrder(body.pipedriveId)
+  if (orderExists) {
     throw new Error('order already registered')
   }
 
-  const response_product_bling = await ProductRepository.createProductBling(body.title)
-  if (response_product_bling.data.retorno.erros) {
-    console.error(response_product_bling.data.retorno.erros[0][0].erro.msg)
-    throw new Error(response_product_bling.data.retorno.erros[0][0].erro.msg)
+  const responseProductBling = await ProductRepository.createProductBling(body.title)
+  if (responseProductBling.data.retorno.erros) {
+    console.error(responseProductBling.data.retorno.erros[0][0].erro.msg)
+    throw new Error(responseProductBling.data.retorno.erros[0][0].erro.msg)
   }
 
-  const product_bling_cod = response_product_bling.data.retorno.produtos[0][0].produto.codigo
+  const productBlingCod = responseProductBling.data.retorno.produtos[0][0].produto.codigo
 
-  const response_order_bling = await createOrderBling(body, product_bling_cod)
-  if (response_order_bling.data.retorno.erros) {
-    console.error(response_order_bling.data.retorno.erros[0].erro.msg)
-    throw new Error(response_order_bling.data.retorno.erros[0].erro.msg)
+  const responseOrderBling = await createOrderBling(body, productBlingCod)
+  if (responseOrderBling.data.retorno.erros) {
+    console.error(responseOrderBling.data.retorno.erros[0].erro.msg)
+    throw new Error(responseOrderBling.data.retorno.erros[0].erro.msg)
   }
 
-  const order_bling = response_order_bling.data.retorno.pedidos[0].pedido
-  body.bling_id = order_bling.idPedido
+  const orderBling = responseOrderBling.data.retorno.pedidos[0].pedido
+  body.blingId = orderBling.idPedido
 
   return OrderRepository.createOrder(body)
 }
@@ -72,7 +72,7 @@ async function createOrderBling(body, item_cod) {
   const order = {
     pedido: {
       cliente: {
-        name: body.client_name,
+        name: body.clientName,
       },
       item: {
         codigo: item_cod,

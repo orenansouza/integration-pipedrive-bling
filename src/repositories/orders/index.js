@@ -22,8 +22,8 @@ module.exports.createOrderBling = async (body) => {
   return axios.post(`/pedido/json?${query}`)
 }
 
-module.exports.validationExistOrder = async (pipedrive_id) => {
-  const order = await OrderModel.findOne({ pipedrive_id })
+module.exports.validationExistOrder = async (pipedriveId) => {
+  const order = await OrderModel.findOne({ pipedriveId })
   if (order) {
     return true
   }
